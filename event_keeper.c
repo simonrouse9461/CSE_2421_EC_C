@@ -57,12 +57,12 @@ int main(void) {
 				printf("Enter event title:\n");
 				fgets(title, MAX_TITLE_LEN, stdin);
 				strtok(title, "\n");
-			prompt:
+			prompt1:
 				printf("Enter event date: (yyyy mm dd)\n");
 				scanf("%hd %hd %hd", &y, &m, &d);
 				if (!date_checker(y, m, d)) {
 					printf("Invalid date! Try again.\n");
-					goto prompt;
+					goto prompt1;
 				}
 				create_event(new, title, y, m, d);
 				save_event_bin(new);
@@ -84,8 +84,13 @@ int main(void) {
 				printf("Enter event title:\n");
 				fgets(title, MAX_TITLE_LEN, stdin);
 				strtok(title, "\n");
-				printf("Enter event date:\n");
-				scanf("%hd/%hd/%hd", &m, &d, &y);
+			prompt2:
+				printf("Enter event date: (yyyy mm dd)\n");
+				scanf("%hd %hd %hd", &y, &m, &d);
+				if (!date_checker(y, m, d)) {
+					printf("Invalid date! Try again.\n");
+					goto prompt2;
+				}
 				create_event(new, title, y, m, d);
 				update_event_by_id(id, new);
 				clear_input();
@@ -110,7 +115,7 @@ int main(void) {
 				printf("h - Help\n");
 				break;
 			default:
-				break;
+				continue;
 		}
 		putchar('\n');
 	}

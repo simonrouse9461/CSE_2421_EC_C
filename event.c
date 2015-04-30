@@ -163,7 +163,7 @@ int confirm(char* prompt, char* proceed, char* abort, char* retry) {
 	char input;
 	printf("%s (y/n)\n", prompt);
 prompt:
-	input = getchar();
+	scanf("%c", &input);
 	if (input == 'y') {
 		printf("%s\n", proceed);
 		return true;
@@ -172,7 +172,8 @@ prompt:
 		return false;
 	} else {
 		if (input != '\n') {
-			printf("Unrecognized input! %s (y/n)", retry);
+			putchar(input);
+			printf("Unrecognized input! %s (y/n)\n", retry);
 		}
 		goto prompt;
 	}
@@ -308,7 +309,7 @@ int update_event_by_id(long unsigned id, Event* e) {
 		sprintf(abort, "Updating aborted!");
 		sprintf(retry, "Are you sure to overwrite?");
 		
-		int confirmed = confirm(prompt, "proceed", abort, retry);
+		int confirmed = confirm(prompt, proceed, abort, retry);
 		
 		if (confirmed) {
 			e->id = id;
